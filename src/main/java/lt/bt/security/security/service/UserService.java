@@ -18,6 +18,7 @@ public class UserService {
     }
 
     public String getUsername() {
+        Authentication authentication = getAuthentication();
         return getAuthentication().getName();
     }
 
@@ -30,5 +31,5 @@ public class UserService {
 
     private Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
-    }
+}
 }

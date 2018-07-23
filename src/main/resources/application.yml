@@ -4,9 +4,9 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://192.168.99.100:3401/records
+    url: jdbc:mysql://127.0.0.1:3307/demo
     username: root
-    password: dev
+    password: root
     driver-class-name: com.mysql.jdbc.Driver
   logging:
     level:

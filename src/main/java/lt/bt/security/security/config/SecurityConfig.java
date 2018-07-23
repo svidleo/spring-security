@@ -17,8 +17,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .anonymous().disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/index").permitAll()
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/index").permitAll()
+                .antMatchers("/user/index").hasRole("USER")
+                .antMatchers("/user/edit").hasRole("ADMIN")
                 .and()
                 .formLogin().loginPage("/login").successForwardUrl("/index").failureUrl("/login-error");
     }
@@ -28,7 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder())
-                .withUser("user").password(passwordEncoder().encode("dev")).roles("USER");
+                .withUser("user").password(passwordEncoder()
+                .encode("dev")).roles("USER")
+                .and()
+                .withUser("admin").password(passwordEncoder()
+                .encode("admin")).roles("ADMIN", "");
     }
 
     @Bean
