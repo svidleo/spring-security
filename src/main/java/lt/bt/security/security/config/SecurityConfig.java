@@ -15,9 +15,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .anonymous().disable()
+//                .anonymous().disable()
                 .authorizeRequests()
                 .antMatchers("/index").permitAll()
+                .antMatchers("/user/registration").permitAll()
                 .antMatchers("/user/index").hasRole("USER")
                 .antMatchers("/user/edit").hasRole("ADMIN")
                 .and()
