@@ -13,19 +13,12 @@
         </form>
     </div>
 </div>
-<h1>Roles</h1>
-<a th:href="@{'/admin/role/new'}">Create new</a>
-<table>
-    <tr th:each="role: ${roles}">
-        <th th:text="${role.getName()}"></th>
-        <th>
-            <a th:href="@{'/admin/role/' + ${role.getRole_id()} + '/delete'}">Delete</a>
-        </th>
-        <th>
-            <a th:href="@{'/admin/role/' + ${role.getRole_id()}}">Edit</a>
-        </th>
-    </tr>
-</table>
-<p><a href="/index" th:href="@{/index}">Back to home page</a></p>
+<h1>New role</h1>
+<form th:action="@{'/admin/role/new'}" method="post" th:object="${role}">
+    <label for="role">Role name</label>:
+    <input type="text" id="role" name="name" autofocus="autofocus" /> <br />
+    <input type="submit" value="Create" />
+</form>
+<p><a href="/index" th:href="@{'/admin/roles}">Back to roles page</a></p>
 </body>
 </html>

@@ -44,6 +44,19 @@ public class AdminController {
         return "admin/role";
     }
 
+    @RequestMapping("/role/new")
+    public String newRole(Role role) {
+        return "admin/create-role";
+    }
+
+    @RequestMapping(value = "/role/new", method = RequestMethod.POST)
+    public String createRole(Role role) {
+        roleRepository.save(role);
+
+        return "redirect:/admin/roles";
+
+    }
+
     @RequestMapping("/authority/{id}/new")
     public String newAuthority(@PathVariable Long id, Model model) {
 
@@ -70,11 +83,19 @@ public class AdminController {
         return "redirect:/admin/role/" + id;
     }
 
+    @RequestMapping("/authority/{roleId}/delete/{authorityId}")
+    public String deleteAuthority(@PathVariable Long roleId, @PathVariable Long authorityId,  Model model) {
+
+        authorityRepository.deleteById(authorityId);
+
+        return "redirect:/admin/role/" + roleId;
+    }
+
     @RequestMapping("/role/{id}/delete")
-    public String deleteAuthority(@PathVariable Long id, Model model) {
+    public String deleteRole(@PathVariable Long id, Model model) {
 
-        authorityRepository.deleteById(id);
+        roleRepository.deleteById(id);
 
-        return "redirect:/admin/role/" + id;
+        return "redirect:/admin/roles/";
     }
 }

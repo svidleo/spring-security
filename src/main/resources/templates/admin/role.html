@@ -20,7 +20,7 @@
     <tr th:each="authority: ${role.getAuthorities()}">
         <th th:text="${authority.getName()}"></th>
         <th>
-            <a th:href="@{'/admin/role/' + ${role.getRole_id()} + '/delete'}">Delete</a>
+            <a th:href="@{'/admin/authority/' + ${role.getRole_id()} + '/delete/' + ${authority.getAuthority_id()}}">Delete</a>
         </th>
     </tr>
 </table>
