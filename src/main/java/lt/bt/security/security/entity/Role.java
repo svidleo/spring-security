@@ -39,5 +39,9 @@ public class Role {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+
+    public void addAuthority(Authority authority) {
+        this.authorities.add(authority);
+    }
 }
 
