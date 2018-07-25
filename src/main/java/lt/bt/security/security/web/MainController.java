@@ -53,9 +53,7 @@ public class MainController {
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("authenticated", service.isAuthenticated());
-        if (service.isAuthenticated()) {
-            return "redirect:/index";
-        }
+
         return "login";
     }
 
