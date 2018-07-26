@@ -1,6 +1,8 @@
 package lt.bt.security.security.service;
 
+import lt.bt.security.security.entity.Role;
 import lt.bt.security.security.entity.User;
+import lt.bt.security.security.repository.RoleRepository;
 import lt.bt.security.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,7 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +24,9 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     public Boolean isAuthenticated() {
         return getAuthentication() != null && getAuthentication().isAuthenticated();
@@ -40,6 +47,13 @@ public class UserService {
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
+
+        Role role = roleRepository.findByName("ROLE_USER");
+
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(role);
+
+        user.setRoles(roleSet);
 
         return repository.save(user);
     }

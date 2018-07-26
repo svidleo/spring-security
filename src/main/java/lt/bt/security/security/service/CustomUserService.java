@@ -1,5 +1,6 @@
 package lt.bt.security.security.service;
 
+import lt.bt.security.security.entity.Authority;
 import lt.bt.security.security.entity.User;
 import lt.bt.security.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
+import java.util.Set;
+
 @Service
 public class CustomUserService implements UserDetailsService {
+
+
 
     @Autowired
     private UserRepository repository;
@@ -22,6 +28,14 @@ public class CustomUserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User %s does not exist!", username));
         }
+
+
+        Set<Authority> authorities = user.getRoles().iterator().next().getAuthorities();
+
+        Set<Authority> filtered = authorities
+                .stream()
+                .filter(a -> { authorities.contains()})
+
 
 
         return new org.springframework.security.core.userdetails.User(
