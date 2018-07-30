@@ -2,6 +2,7 @@ package lt.bt.security.security.service;
 
 import lt.bt.security.security.entity.Role;
 import lt.bt.security.security.entity.User;
+import lt.bt.security.security.entity.dto.UserDto;
 import lt.bt.security.security.repository.RoleRepository;
 import lt.bt.security.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,18 @@ public class UserService {
         user.setRoles(roleSet);
 
         return repository.save(user);
+    }
+
+    public UserDto getCurrentUser(String name) {
+        User user = repository.findByUsername(name);
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+
+        return userDto;
+    }
+
+    public void reject() throws Exception {
+        throw new Exception("SOme");
     }
 
     private Authentication getAuthentication() {
