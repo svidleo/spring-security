@@ -32,10 +32,6 @@ public class CustomUserService implements UserDetailsService {
 
         Set<Authority> authorities = user.getRoles().iterator().next().getAuthorities();
 
-        Set<Authority> filtered = authorities
-                .stream()
-                .filter(a -> { authorities.contains()})
-
 
 
         return new org.springframework.security.core.userdetails.User(

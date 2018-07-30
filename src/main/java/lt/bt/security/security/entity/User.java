@@ -2,10 +2,9 @@ package lt.bt.security.security.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lt.bt.security.security.entity.dto.UserDto;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,10 +20,8 @@ public class User {
 
     private String lastname;
 
-    @Email
     private String username;
 
-    @Size(min = 6)
     private String password;
 
     private Boolean enabled;
@@ -33,6 +30,16 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles = new HashSet<Role>();
+
+    public User() {
+    }
+
+    public User(UserDto dto) {
+        setFirstname(dto.getFirstname());
+        setLastname(dto.getLastname());
+        setUsername(dto.getUsername());
+        setPassword(dto.getPassword());
+    }
 
     public Long getUserId() {
         return userId;

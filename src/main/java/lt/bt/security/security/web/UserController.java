@@ -1,6 +1,7 @@
 package lt.bt.security.security.web;
 
 import lt.bt.security.security.entity.User;
+import lt.bt.security.security.entity.dto.UserDto;
 import lt.bt.security.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,14 +28,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createUser(@Valid User user, BindingResult errors, Model model) {
+    public String createUser(@Valid UserDto user, BindingResult errors, Model model) {
         System.out.println(errors);
 
         if (errors.hasErrors()) {
             return "user/registration";
         }
-
-        service.createUser(user);
+        service.createUser(new User(user));
 
 
         return "user/created";
