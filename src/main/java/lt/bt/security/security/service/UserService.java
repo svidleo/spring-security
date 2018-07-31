@@ -8,6 +8,7 @@ import lt.bt.security.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,13 +59,30 @@ public class UserService {
 
         return repository.save(user);
     }
+    public User applyRoles(User user) {
 
-    public UserDto getCurrentUser(String name) {
-        User user = repository.findByUsername(name);
+        Role role = roleRepository.findByName("ROLE_USER");
+
+        Set<Role> roleSet = new HashSet<>();
+        roleSet.add(role);
+
+        user.setRoles(roleSet);
+
+        return user;
+
+    }
+
+    public UserDto getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = repository.findByUsername(username);
         UserDto userDto = new UserDto();
         userDto.setUsername(user.getUsername());
 
         return userDto;
+    }
+
+    public User getByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     public void reject() throws Exception {
